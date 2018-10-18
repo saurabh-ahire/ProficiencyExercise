@@ -1,7 +1,9 @@
-package saurabh.test.com.proficiencyexercise;
+package saurabh.test.com.proficiencyexercise.view;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import saurabh.test.com.proficiencyexercise.R;
 
 public class HomeActivity extends AppCompatActivity {
 
