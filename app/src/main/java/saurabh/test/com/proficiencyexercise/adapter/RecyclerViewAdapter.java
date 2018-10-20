@@ -41,12 +41,22 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position) {
         CanadaInformation canadaInformation = canadaInformationList.get(position);
-        holder.tvTitle.setText(canadaInformation.getTitle());
-        holder.tvDescription.setText(canadaInformation.getDescription());
+
+        if (canadaInformation.getTitle() != null) {
+            holder.tvTitle.setText(canadaInformation.getTitle());
+        } else {
+            holder.tvTitle.setText("Header not available");
+        }
+        if (canadaInformation.getDescription() != null) {
+            holder.tvDescription.setText(canadaInformation.getDescription());
+        } else {
+            holder.tvDescription.setText("Description not available");
+        }
+
         Picasso.get()
                 .load(canadaInformation.getImageHref())
-                .placeholder(R.drawable.ic_launcher_foreground)
-                .error(R.drawable.ic_launcher_foreground)
+                .placeholder(R.drawable.ic_wallpaper_24dp)
+                .error(R.drawable.ic_wallpaper_24dp)
                 .into(holder.ivImage);
 
     }

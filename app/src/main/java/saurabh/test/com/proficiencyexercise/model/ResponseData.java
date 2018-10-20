@@ -10,7 +10,7 @@ public class ResponseData {
     @SerializedName("title")
     @Expose
     private String title;
-    @SerializedName("canadaInformations")
+    @SerializedName("rows")
     @Expose
     private List<CanadaInformation> canadaInformations = null;
 

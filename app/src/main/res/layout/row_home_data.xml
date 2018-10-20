@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/margin_4">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -13,11 +16,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLines="2"
-            android:text="buehiehuehi"
             android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/text_header_size" />
+            android:textSize="@dimen/text_header_size"
+            tool:text="Header" />
 
         <RelativeLayout
+            android:id="@+id/relative_body"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_title"
@@ -27,17 +31,26 @@
                 android:id="@+id/tv_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
                 android:layout_marginRight="@dimen/margin_8"
-                android:text="buehiehuehi"
+                android:layout_toLeftOf="@+id/iv_image"
                 android:textColor="@color/black"
-                android:textSize="@dimen/text_description_size" />
+                android:textSize="@dimen/text_description_size"
+                tool:text="Description" />
 
             <ImageView
                 android:id="@+id/iv_image"
                 android:layout_width="100dp"
-                android:layout_height="80dp"
-                android:layout_alignParentRight="true"
+                android:layout_height="70dp"
+                android:layout_toLeftOf="@+id/iv_arrow"
                 android:adjustViewBounds="true" />
+
+            <ImageView
+                android:id="@+id/iv_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                app:srcCompat="@drawable/ic_right_black_24dp" />
 
         </RelativeLayout>
     </RelativeLayout>
