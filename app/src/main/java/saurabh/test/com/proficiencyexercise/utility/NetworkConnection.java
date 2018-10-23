@@ -5,6 +5,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 /**
+ * To detect the network status connection.
+ *
  * Created by saurabha on 18/10/18.
  */
 public class NetworkConnection {

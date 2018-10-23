@@ -1,27 +1,36 @@
-package saurabh.test.com.proficiencyexercise.presentor;
+package saurabh.test.com.proficiencyexercise.model;
 
 import android.content.Context;
-
-import java.io.IOException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import saurabh.test.com.proficiencyexercise.R;
-import saurabh.test.com.proficiencyexercise.model.ResponseData;
+import saurabh.test.com.proficiencyexercise.model.data.ResponseData;
 import saurabh.test.com.proficiencyexercise.network.ApiCallClient;
+import saurabh.test.com.proficiencyexercise.presentor.HomeScreenResponseHandler;
+import saurabh.test.com.proficiencyexercise.network.RetroNetworkInterface;
 
 /**
+ * This is a service implementer.
+ * It will handle all data related functionality like initiating actual API call or database
+ * operation.
+ * <p>
  * Created by saurabha on 18/10/18.
  */
-public class HomeScreenIntegrator {
+public class HomeScreenIntegrator implements GetCanadaInformationServiceContract {
 
+    HomeScreenResponseHandler homeScreenResponseHandler;
 
+    public HomeScreenIntegrator(HomeScreenResponseHandler homeScreenResponseHandler) {
+        this.homeScreenResponseHandler = homeScreenResponseHandler;
+    }
 
-    public void getCanadaInformation(final Context context, final HomeScreenResponseHandler homeScreenResponseHandler) {
+    @Override
+    public void getCanadaInformation(final Context context) {
 
         final RetroNetworkInterface apiService =
-                ApiCallClient.getClient(context).create(RetroNetworkInterface.class);
+                ApiCallClient.getClient().create(RetroNetworkInterface.class);
 
         Call<ResponseData> call = apiService.getCanadaInformations();
 

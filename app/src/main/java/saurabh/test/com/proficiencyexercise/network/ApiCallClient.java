@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.readystatesoftware.chuck.ChuckInterceptor;
 
 import java.security.cert.CertificateException;
 import java.util.concurrent.TimeUnit;
@@ -21,6 +20,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import saurabh.test.com.proficiencyexercise.Constants.NetworkConstants;
 
 /**
+ * This calss is created to handle API call initializations.
+ *
  * Created by saurabha on 18/10/18.
  */
 public class ApiCallClient {
@@ -29,7 +30,7 @@ public class ApiCallClient {
     private static Retrofit retrofit = null;
 
 
-    public static Retrofit getClient(Context context) {
+    public static Retrofit getClient() {
 
         Gson gson = new GsonBuilder()
                 .setLenient()
@@ -43,18 +44,15 @@ public class ApiCallClient {
             retrofit = new Retrofit.Builder()
                     .baseUrl(NetworkConstants.BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create(gson))
-                    .client(getClientWithHeader(context))
+                    .client(getClientWithHeader())
                     .build();
         }
 
         return retrofit;
     }
 
-    private static OkHttpClient getClientWithHeader(Context context) {
+    private static OkHttpClient getClientWithHeader() {
 
-        /*Chuck Interceptor for testing HTTP requests
-         **/
-        httpClient.interceptors().add(new ChuckInterceptor(context));
         httpClient.readTimeout(REQUEST_TIME_OUT_TIME, TimeUnit.SECONDS);
         httpClient.connectTimeout(REQUEST_TIME_OUT_TIME, TimeUnit.SECONDS);
 

@@ -4,9 +4,12 @@ import android.support.v4.widget.SwipeRefreshLayout;
 
 import java.util.List;
 
-import saurabh.test.com.proficiencyexercise.model.CanadaInformation;
+import saurabh.test.com.proficiencyexercise.model.data.CanadaInformation;
+import saurabh.test.com.proficiencyexercise.model.HomeScreenIntegrator;
 
 /**
+ * Business logic related to information will be here.
+ *
  * Created by saurabha on 18/10/18.
  */
 public class HomeScreenPresenterImp implements HomeScreenResponseHandler,SwipeRefreshLayout.OnRefreshListener {
@@ -21,7 +24,7 @@ public class HomeScreenPresenterImp implements HomeScreenResponseHandler,SwipeRe
         if (!isRefresh) {
             homeScreenView.showProgressBar();
         }
-        new HomeScreenIntegrator().getCanadaInformation(homeScreenView.getContext(), this);
+        new HomeScreenIntegrator(this).getCanadaInformation(homeScreenView.getContext());
     }
 
     @Override

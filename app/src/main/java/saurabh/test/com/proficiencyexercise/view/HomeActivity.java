@@ -14,7 +14,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import saurabh.test.com.proficiencyexercise.R;
 import saurabh.test.com.proficiencyexercise.adapter.RecyclerViewAdapter;
-import saurabh.test.com.proficiencyexercise.model.CanadaInformation;
+import saurabh.test.com.proficiencyexercise.model.data.CanadaInformation;
 import saurabh.test.com.proficiencyexercise.presentor.HomeScreenPresenterImp;
 import saurabh.test.com.proficiencyexercise.presentor.HomeScreenView;
 import saurabh.test.com.proficiencyexercise.utility.AppActivity;
@@ -113,7 +113,6 @@ public class HomeActivity extends AppActivity implements HomeScreenView {
      *  setRefreshing - true if page is refreshing
      *                - false if page is stop refreshing
      */
-
     public void setRefreshingState(boolean setRefreshing) {
         if (null == swipeRefreshHomeScreen) {
             return;

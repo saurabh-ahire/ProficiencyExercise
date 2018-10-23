@@ -13,13 +13,5 @@ public class ProficiencyExerciseApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        // BEGIN_INCLUDE(Configuration of Piccaso to cache images)
-        Picasso.Builder builder = new Picasso.Builder(this);
-        builder.downloader(new OkHttp3Downloader(this, Integer.MAX_VALUE));
-        Picasso built = builder.build();
-        built.setIndicatorsEnabled(true);
-        built.setLoggingEnabled(true);
-        Picasso.setSingletonInstance(built);
-
     }
 }

@@ -1,6 +1,8 @@
 package saurabh.test.com.proficiencyexercise.Constants;
 
 /**
+ * This class stores all constant fields.
+ *
  * Created by saurabha on 18/10/18.
  */
 public interface NetworkConstants {

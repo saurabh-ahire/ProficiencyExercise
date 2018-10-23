@@ -1,6 +1,5 @@
 package saurabh.test.com.proficiencyexercise.adapter;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,7 +15,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import saurabh.test.com.proficiencyexercise.R;
-import saurabh.test.com.proficiencyexercise.model.CanadaInformation;
+import saurabh.test.com.proficiencyexercise.model.data.CanadaInformation;
 
 /**
  * Created by saurabha on 18/10/18.
@@ -40,6 +39,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position) {
+
+        /*
+        * Get element from your dataset at this position and replace the
+        * contents of the view with that element
+        */
         CanadaInformation canadaInformation = canadaInformationList.get(position);
 
         if (canadaInformation.getTitle() != null) {
@@ -52,7 +56,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         } else {
             holder.tvDescription.setText("Description not available");
         }
-
+        //Load thumbnail of images
         Picasso.get()
                 .load(canadaInformation.getImageHref())
                 .placeholder(R.drawable.ic_wallpaper_24dp)
@@ -66,6 +70,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return canadaInformationList.size();
     }
 
+    /**
+     * Provide a reference to the type of views that you are using (custom ViewHolder)
+     */
     public class RecyclerViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.tv_title)
         TextView tvTitle;

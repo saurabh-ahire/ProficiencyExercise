@@ -1,4 +1,4 @@
-package saurabh.test.com.proficiencyexercise.model;
+package saurabh.test.com.proficiencyexercise.model.data;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
