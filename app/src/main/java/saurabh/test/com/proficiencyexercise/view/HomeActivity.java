@@ -1,6 +1,7 @@
 package saurabh.test.com.proficiencyexercise.view;
 
 import android.content.Context;
+import android.os.PersistableBundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -36,14 +38,21 @@ public class HomeActivity extends AppActivity implements HomeScreenView {
     RecyclerView recyclerViewHomeScreen;
     @BindView(R.id.tv_no_data)
     TextView tvNoData;
-
+    ArrayList<CanadaInformation> canadaInformationList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
         setListeners();
-        getCanadaInformationAPICall(false);
+
+        if (savedInstanceState != null) {
+            canadaInformationList = savedInstanceState.getParcelableArrayList("data");
+            setDataToAdapter();
+        }else {
+            getCanadaInformationAPICall(false);
+        }
+
     }
 
     /**
@@ -51,6 +60,7 @@ public class HomeActivity extends AppActivity implements HomeScreenView {
      */
 
     private void setListeners() {
+
         homeScreenPresenterImp = new HomeScreenPresenterImp(this);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         recyclerViewHomeScreen.setLayoutManager(mLayoutManager);
@@ -90,16 +100,23 @@ public class HomeActivity extends AppActivity implements HomeScreenView {
     }
 
     @Override
-    public void onSuccess(List<CanadaInformation> canadaInformationList) {
+    public void onSuccess(List<CanadaInformation> canadaInformationListData) {
         setRefreshingState(false);
-        if (canadaInformationList.isEmpty()) {
+        if (canadaInformationListData.isEmpty()) {
             tvNoData.setVisibility(View.VISIBLE);
             recyclerViewHomeScreen.setVisibility(View.GONE);
         } else {
-            RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(canadaInformationList);
-            recyclerViewHomeScreen.setAdapter(recyclerViewAdapter);
+            canadaInformationList=new ArrayList<>();
+            canadaInformationList.clear();
+            canadaInformationList.addAll(canadaInformationListData);
+           setDataToAdapter();
         }
 
+    }
+
+    private void setDataToAdapter() {
+        RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(canadaInformationList);
+        recyclerViewHomeScreen.setAdapter(recyclerViewAdapter);
     }
 
     @Override
@@ -119,5 +136,11 @@ public class HomeActivity extends AppActivity implements HomeScreenView {
         }
         swipeRefreshHomeScreen.setRefreshing(setRefreshing);
 
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putParcelableArrayList("data",canadaInformationList);
+        super.onSaveInstanceState(outState);
     }
 }
