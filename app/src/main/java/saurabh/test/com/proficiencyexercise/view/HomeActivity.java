@@ -1,5 +1,6 @@
 package saurabh.test.com.proficiencyexercise.view;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.os.PersistableBundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -21,10 +22,11 @@ import saurabh.test.com.proficiencyexercise.presentor.HomeScreenPresenterImp;
 import saurabh.test.com.proficiencyexercise.presentor.HomeScreenView;
 import saurabh.test.com.proficiencyexercise.utility.AppActivity;
 import saurabh.test.com.proficiencyexercise.utility.DialogPresenter;
+import saurabh.test.com.proficiencyexercise.viewmodel.CanadaInformationViewModel;
 
 /**
  * This will be a launcher activity
- *
+ * <p>
  * Created by saurabha on 18/10/18.
  */
 
@@ -38,7 +40,8 @@ public class HomeActivity extends AppActivity implements HomeScreenView {
     RecyclerView recyclerViewHomeScreen;
     @BindView(R.id.tv_no_data)
     TextView tvNoData;
-    ArrayList<CanadaInformation> canadaInformationList;
+    private CanadaInformationViewModel canadaInformationViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,10 +49,11 @@ public class HomeActivity extends AppActivity implements HomeScreenView {
         ButterKnife.bind(this);
         setListeners();
 
-        if (savedInstanceState != null) {
-            canadaInformationList = savedInstanceState.getParcelableArrayList("data");
-            setDataToAdapter();
-        }else {
+         canadaInformationViewModel = ViewModelProviders.of(this).get(CanadaInformationViewModel.class);
+
+        if (!canadaInformationViewModel.getCanadaInformationList().isEmpty()) {
+            setDataToAdapter(canadaInformationViewModel.getCanadaInformationList());
+        } else {
             getCanadaInformationAPICall(false);
         }
 
@@ -106,15 +110,13 @@ public class HomeActivity extends AppActivity implements HomeScreenView {
             tvNoData.setVisibility(View.VISIBLE);
             recyclerViewHomeScreen.setVisibility(View.GONE);
         } else {
-            canadaInformationList=new ArrayList<>();
-            canadaInformationList.clear();
-            canadaInformationList.addAll(canadaInformationListData);
-           setDataToAdapter();
+            canadaInformationViewModel.setCanadaInformationList(canadaInformationListData);
+            setDataToAdapter(canadaInformationListData);
         }
 
     }
 
-    private void setDataToAdapter() {
+    private void setDataToAdapter(List<CanadaInformation> canadaInformationList) {
         RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(canadaInformationList);
         recyclerViewHomeScreen.setAdapter(recyclerViewAdapter);
     }
@@ -127,8 +129,8 @@ public class HomeActivity extends AppActivity implements HomeScreenView {
     /**
      * This method will check whether is page refreshing
      * parameter is-
-     *  setRefreshing - true if page is refreshing
-     *                - false if page is stop refreshing
+     * setRefreshing - true if page is refreshing
+     * - false if page is stop refreshing
      */
     public void setRefreshingState(boolean setRefreshing) {
         if (null == swipeRefreshHomeScreen) {
@@ -138,9 +140,4 @@ public class HomeActivity extends AppActivity implements HomeScreenView {
 
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        outState.putParcelableArrayList("data",canadaInformationList);
-        super.onSaveInstanceState(outState);
-    }
 }

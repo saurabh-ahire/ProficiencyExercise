@@ -18,11 +18,11 @@ import saurabh.test.com.proficiencyexercise.network.RetroNetworkInterface;
  * <p>
  * Created by saurabha on 18/10/18.
  */
-public class HomeScreenIntegrator implements GetCanadaInformationServiceContract {
+public class HomeScreenInteractor implements GetCanadaInformationServiceContract {
 
     HomeScreenResponseHandler homeScreenResponseHandler;
 
-    public HomeScreenIntegrator(HomeScreenResponseHandler homeScreenResponseHandler) {
+    public HomeScreenInteractor(HomeScreenResponseHandler homeScreenResponseHandler) {
         this.homeScreenResponseHandler = homeScreenResponseHandler;
     }
 

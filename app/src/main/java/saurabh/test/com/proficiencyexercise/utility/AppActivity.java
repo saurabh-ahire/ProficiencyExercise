@@ -80,7 +80,7 @@ public class AppActivity extends AppCompatActivity implements ProgressbarLoader 
      * This method will show a No Network Connection dialog
      * */
     protected void showNoNetworkError() {
-        DialogPresenter.showDialog(this, getString(R.string.error),
+        DialogPresenter.showDialog(this,"",
                 getString(R.string.alert_network_not_available), getString(R.string.button_ok), null, null);
 
     }
